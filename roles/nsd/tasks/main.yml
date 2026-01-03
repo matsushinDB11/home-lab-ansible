@@ -66,3 +66,17 @@
   tags: build_nsd
   ansible.builtin.debug:
     msg: "{{ nsd_version_output.stderr }}"
+- name: Set NSD Config Directory Owner
+  tags: build_nsd
+  ansible.builtin.file:
+    path: /etc/nsd
+    owner: nsd
+    group: nsd
+    recurse: true
+- name: Set NSD Data Directory Owner
+  tags: build_nsd
+  ansible.builtin.file:
+    path: /var/db/nsd
+    owner: nsd
+    group: nsd
+    recurse: true
