@@ -4,6 +4,6 @@
   become: true
   tasks:
     - name: Include NSD Role
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: nsd
       tags: nsd
