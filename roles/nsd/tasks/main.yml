@@ -1,0 +1,14 @@
+---
+- name: Create NSD Group
+  tags: create_user
+  ansible.builtin.group:
+    name: "nsd"
+- name: Create NSD User
+  tags: create_user
+  ansible.builtin.user:
+    name: "nsd"
+    group: "nsd"
+    password: "!"
+    create_home: no
+    shell: /usr/sbin/nologin
+    system: true

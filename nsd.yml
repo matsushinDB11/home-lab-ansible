@@ -1,0 +1,9 @@
+---
+- name: Setup NSD Node
+  hosts: nsd
+  become: true
+  tasks:
+    - name: Include NSD Role
+      ansible.builtin.include_role:
+        name: nsd
+      tags: nsd
