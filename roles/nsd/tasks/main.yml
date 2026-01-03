@@ -27,3 +27,42 @@
       - libfstrm-dev
       - libsystemd-dev
     update_cache: true
+- name: Download NSD Source
+  tags: build_nsd
+  ansible.builtin.get_url:
+    url: "{{ nsd_download_url }}"
+    dest: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}.tar.gz"
+    mode: "0644"
+- name: Extract NSD Source
+  tags: build_nsd
+  ansible.builtin.unarchive:
+    src: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}.tar.gz"
+    dest: "{{ nsd_src_dir }}"
+    remote_src: true
+    creates: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}"
+- name: Configure NSD
+  tags: build_nsd
+  ansible.builtin.command:
+    cmd: ./configure {{ nsd_configure_options }}
+    chdir: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}"
+    creates: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}/Makefile"
+- name: Build NSD
+  tags: build_nsd
+  community.general.make:
+    chdir: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}"
+    jobs: "{{ ansible_facts['processor_vcpus'] | default(2) }}"
+- name: Install NSD
+  tags: build_nsd
+  community.general.make:
+    chdir: "{{ nsd_src_dir }}/nsd-{{ nsd_version }}"
+    target: install
+- name: Verify NSD Installation
+  tags: build_nsd
+  ansible.builtin.command:
+    cmd: /usr/local/sbin/nsd -v
+  register: nsd_version_output
+  changed_when: false
+- name: Display NSD Version
+  tags: build_nsd
+  ansible.builtin.debug:
+    msg: "{{ nsd_version_output.stderr }}"

@@ -1,0 +1,5 @@
+---
+nsd_version: "4.14.0"
+nsd_download_url: "https://nlnetlabs.nl/downloads/nsd/nsd-{{ nsd_version }}.tar.gz"
+nsd_src_dir: "/usr/local/src"
+nsd_configure_options: "--disable-ipv6 --enable-systemd"
