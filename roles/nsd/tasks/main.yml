@@ -12,3 +12,18 @@
     create_home: no
     shell: /usr/sbin/nologin
     system: true
+- name: Install NSD Dependencies
+  tags: build_nsd
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - libssl-dev
+      - libevent-dev
+      - pkg-config
+      - flex
+      - bison
+      - libprotobuf-c-dev
+      - protobuf-c-compiler
+      - libfstrm-dev
+      - libsystemd-dev
+    update_cache: true
