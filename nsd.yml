@@ -1,4 +1,12 @@
 ---
+- name: Common Setup
+  hosts: all
+  become: true
+  tasks:
+    - name: Include Common Role
+      ansible.builtin.import_role:
+        name: common
+      tags: common
 - name: Setup NSD Node
   hosts: nsd
   become: true
