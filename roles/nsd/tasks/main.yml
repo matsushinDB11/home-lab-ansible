@@ -80,6 +80,24 @@
     owner: nsd
     group: nsd
     recurse: true
+- name: Copy NSD Configuration File
+  tags: configure_nsd
+  ansible.builtin.template:
+    src: nsd.conf.j2
+    dest: /etc/nsd/nsd.conf
+    owner: nsd
+    group: nsd
+    mode: "0644"
+  notify: Restart NSD
+- name: Create NSD Zones Directory
+  tags: configure_nsd
+  ansible.builtin.template:
+    src: matsumoto.home.zone.j2
+    dest: /etc/nsd/matsumoto.home.zone
+    owner: nsd
+    group: nsd
+    mode: "0644"
+  notify: Restart NSD
 - name: Copy NSD systemd Service File
   tags: configure_nsd
   ansible.builtin.copy:

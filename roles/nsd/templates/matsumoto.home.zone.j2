@@ -1,0 +1,14 @@
+$TTL	86400
+@	IN SOA ns1.matsumoto.home. hostmaster.matsumoto.home. (
+	2025122902
+	10800
+	3600
+	604800
+	86400 )
+; name server
+	IN NS ns1.matsumoto.home.
+; IP Address
+	IN A {{ ansible_facts['eth0']['ipv4']['address'] }}
+ns1	IN A {{ ansible_facts['eth0']['ipv4']['address'] }}
+nas	IN A 192.168.2.128
+proxmox	IN A 192.168.2.32
