@@ -1,6 +1,6 @@
 ---
 - name: Common Setup
-  hosts: all
+  hosts: nsd
   become: true
   tasks:
     - name: Include Common Role
